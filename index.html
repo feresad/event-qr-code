@@ -15,27 +15,16 @@
         <h2 id="event-name"></h2>
         <p><strong>Date :</strong> <span id="event-date"></span></p>
         <p><strong>Lieu :</strong> <span id="event-location"></span></p>
+        <p><strong>Places disponibles :</strong> <span id="event-places"></span></p>
     </div>
 
     <script>
-        // Récupérer l'ID depuis l'URL (ex: ?id=123)
+        // Récupérer l'ID depuis l'URL (ex: ?id=1&nom=Tournoi FIFA 24&date=10-03-2025&lieu=Tunis&places=100)
         const params = new URLSearchParams(window.location.search);
-        const eventId = params.get("id");
-
-        // Simuler une base de données d'événements
-        const events = {
-            "1": { name: "Tournoi FIFA 24", date: "10-03-2025", location: "Tunis" },
-            "2": { name: "Conférence E-Sport", date: "15-04-2025", location: "Sfax" }
-        };
-
-        // Afficher les infos de l'événement correspondant
-        if (events[eventId]) {
-            document.getElementById("event-name").textContent = events[eventId].name;
-            document.getElementById("event-date").textContent = events[eventId].date;
-            document.getElementById("event-location").textContent = events[eventId].location;
-        } else {
-            document.body.innerHTML = "<h2>Événement introuvable</h2>";
-        }
+        document.getElementById("event-name").textContent = params.get("nom") || "Non défini";
+        document.getElementById("event-date").textContent = params.get("date") || "Non défini";
+        document.getElementById("event-location").textContent = params.get("lieu") || "Non défini";
+        document.getElementById("event-places").textContent = params.get("places") || "Non défini";
     </script>
 </body>
 </html>
