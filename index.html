@@ -19,12 +19,35 @@
     </div>
 
     <script>
-        // Récupérer l'ID depuis l'URL (ex: ?id=1&nom=Tournoi FIFA 24&date=10-03-2025&lieu=Tunis&places=100)
-        const params = new URLSearchParams(window.location.search);
-        document.getElementById("event-name").textContent = params.get("nom") || "Non défini";
-        document.getElementById("event-date").textContent = params.get("date") || "Non défini";
-        document.getElementById("event-location").textContent = params.get("lieu") || "Non défini";
-        document.getElementById("event-places").textContent = params.get("places") || "Non défini";
-    </script>
+        // Fonction pour récupérer les paramètres de l'URL
+        function getQueryParams() {
+            let params = new URLSearchParams(window.location.search);
+            return {
+                id: params.get("id"),
+                nom: params.get("nom"),
+                date: params.get("date"),
+                lieu: params.get("lieu"),
+                places: params.get("places")
+            };
+        }
+      
+        // Récupérer les données de l'événement
+        let eventData = getQueryParams();
+      
+        // Vérifier si on reçoit les paramètres
+        console.log("Données reçues :", eventData);
+      
+        // Afficher les données dans la page HTML
+        document.addEventListener("DOMContentLoaded", function () {
+            if (eventData.nom) {
+                document.getElementById("eventNom").textContent = eventData.nom;
+                document.getElementById("eventDate").textContent = eventData.date;
+                document.getElementById("eventLieu").textContent = eventData.lieu;
+                document.getElementById("eventPlaces").textContent = eventData.places;
+            } else {
+                document.getElementById("eventDetails").textContent = "Aucune donnée reçue.";
+            }
+        });
+      </script>
 </body>
 </html>
