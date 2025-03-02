@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de l'Événement</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        .event-card { max-width: 400px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; box-shadow: 2px 2px 10px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+    <h1>Détails de l'Événement</h1>
+    <div class="event-card">
+        <h2 id="event-name"></h2>
+        <p><strong>Date :</strong> <span id="event-date"></span></p>
+        <p><strong>Lieu :</strong> <span id="event-location"></span></p>
+    </div>
+
+    <script>
+        // Récupérer l'ID depuis l'URL (ex: ?id=123)
+        const params = new URLSearchParams(window.location.search);
+        const eventId = params.get("id");
+
+        // Simuler une base de données d'événements
+        const events = {
+            "1": { name: "Tournoi FIFA 24", date: "10-03-2025", location: "Tunis" },
+            "2": { name: "Conférence E-Sport", date: "15-04-2025", location: "Sfax" }
+        };
+
+        // Afficher les infos de l'événement correspondant
+        if (events[eventId]) {
+            document.getElementById("event-name").textContent = events[eventId].name;
+            document.getElementById("event-date").textContent = events[eventId].date;
+            document.getElementById("event-location").textContent = events[eventId].location;
+        } else {
+            document.body.innerHTML = "<h2>Événement introuvable</h2>";
+        }
+    </script>
+</body>
+</html>
