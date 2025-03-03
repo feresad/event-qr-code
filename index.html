@@ -29,6 +29,19 @@
         .event-image {
             width: 100%;
             height: 200px;
+            overflow: hidden;
+            background: #f8f9fa; /* Couleur de fond si l'image ne charge pas */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .event-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Remplace contain par cover pour un meilleur rendu */
+            object-position: center;
+            display: block;
         }
 
         .event-content {
@@ -93,11 +106,6 @@
             .info-item { flex-direction: column; text-align: center; }
             .info-item strong { margin-bottom: 5px; }
         }
-        .event-image img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain; /* Garde les proportions de l'image */
-        }
     </style>
 </head>
 <body>
@@ -135,13 +143,25 @@
             };
         }
 
+        // Fonction pour formater la date au format dd/mm/yyyy hh:mm
+        function formatDate(dateString) {
+            if (!dateString) return "";
+            const date = new Date(dateString);
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            return `${day}/${month}/${year} ${hours}:${minutes}`;
+        }
+
         let eventData = getQueryParams();
         console.log("Données reçues :", eventData);
 
         document.addEventListener("DOMContentLoaded", function () {
             if (eventData.nom) {
                 document.getElementById("eventNom").textContent = eventData.nom;
-                document.getElementById("eventDate").textContent = eventData.date;
+                document.getElementById("eventDate").textContent = formatDate(eventData.date);
                 document.getElementById("eventLieu").textContent = eventData.lieu;
                 document.getElementById("eventPlaces").textContent = eventData.places;
             } else {
