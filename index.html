@@ -111,7 +111,7 @@
 <body>
     <div class="event-wrapper">
         <div class="event-image">
-            <img src="lev.png" alt="Evenement Image">
+            <img src="lev.png" alt="Evenement Image" id="eventImage">
         </div>
         <div class="event-content">
             <h1 id="eventNom"></h1>
@@ -139,7 +139,8 @@
                 nom: params.get("nom"),
                 date: params.get("date"),
                 lieu: params.get("lieu"),
-                places: params.get("places")
+                places: params.get("places"),
+                image: params.get("image")
             };
         }
 
@@ -164,6 +165,10 @@
                 document.getElementById("eventDate").textContent = formatDate(eventData.date);
                 document.getElementById("eventLieu").textContent = eventData.lieu;
                 document.getElementById("eventPlaces").textContent = eventData.places;
+                // Mettre à jour l'image si une URL d'image est fournie
+                if (eventData.image) {
+                    document.getElementById("eventImage").src = eventData.image;
+                }
             } else {
                 document.querySelector(".event-content").innerHTML = 
                     "<p style='text-align: center;'>Aucune donnée reçue. Veuillez scanner un QR Code valide.</p>";
