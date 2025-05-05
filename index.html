@@ -6,105 +6,162 @@
     <title>Détails de l'Événement</title>
     <style>
         body {
-            font-family: 'Roboto', Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
-            background: #f0f2f5;
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            overflow-y: auto;
         }
 
         .event-wrapper {
-            max-width: 500px;
-            width: 100%;
-            background: white;
-            border-radius: 20px;
+            max-width: 520px;
+            width: 90%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            animation: slideUp 0.6s ease-out;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            animation: fadeInScale 0.8s ease-out;
+            margin: 20px;
         }
 
         .event-image {
             width: 100%;
-            height: 200px;
+            height: 240px;
             overflow: hidden;
-            background: #f8f9fa; /* Couleur de fond si l'image ne charge pas */
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            position: relative;
         }
 
         .event-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Remplace contain par cover pour un meilleur rendu */
+            object-fit: cover;
             object-position: center;
-            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .event-image:hover img {
+            transform: scale(1.1);
+        }
+
+        .event-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
         }
 
         .event-content {
-            padding: 25px;
-            text-align: left;
+            padding: 30px;
+            position: relative;
         }
 
         h1 {
-            font-size: 26px;
-            color: #1a73e8;
-            margin: 0 0 20px;
+            font-size: 28px;
+            color: #1e3a8a;
+            margin: 0 0 25px;
             text-align: center;
-            font-weight: 500;
+            font-weight: 700;
+            animation: textGlow 1.5s infinite alternate;
         }
 
         .info-item {
             display: flex;
             align-items: center;
-            margin: 15px 0;
-            padding: 10px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            transition: background 0.3s;
+            margin: 12px 0;
+            padding: 12px;
+            background: rgba(243, 244, 246, 0.7);
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .info-item:hover {
-            background: #e8f0fe;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background: rgba(219, 234, 254, 0.9);
         }
 
         .info-item strong {
-            min-width: 120px;
-            color: #333;
+            min-width: 130px;
+            color: #1f2937;
             font-weight: 600;
+            font-size: 16px;
         }
 
         .info-item span {
-            color: #555;
+            color: #4b5563;
             flex-grow: 1;
+            font-size: 15px;
         }
 
         .qr-badge {
-            margin-top: 20px;
+            margin-top: 25px;
             text-align: center;
-            font-size: 12px;
-            color: #888;
-            background: #e9ecef;
-            padding: 8px;
-            border-radius: 5px;
+            font-size: 13px;
+            color: #6b7280;
+            background: rgba(229, 231, 235, 0.8);
+            padding: 10px;
+            border-radius: 8px;
+            animation: pulseBadge 2s infinite;
         }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Keyframes Animations */
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.8) translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @keyframes textGlow {
+            0% {
+                text-shadow: 0 0 5px rgba(30, 64, 175, 0.5);
+            }
+            100% {
+                text-shadow: 0 0 15px rgba(30, 64, 175, 0.8);
+            }
+        }
+
+        @keyframes pulseBadge {
+            0% {
+                box-shadow: 0 0 0 0 rgba(107, 114, 128, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(107, 114, 128, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(107, 114, 128, 0);
+            }
         }
 
         @media (max-width: 480px) {
             .event-wrapper {
-                margin: 10px;
+                margin: 15px;
             }
-            h1 { font-size: 22px; }
-            .event-image { height: 150px; }
-            .info-item { flex-direction: column; text-align: center; }
-            .info-item strong { margin-bottom: 5px; }
+            h1 {
+                font-size: 24px;
+            }
+            .event-image {
+                height: 180px;
+            }
+            .info-item {
+                flex-direction: column;
+                text-align: center;
+                padding: 10px;
+            }
+            .info-item strong {
+                margin-bottom: 8px;
+            }
         }
     </style>
 </head>
@@ -144,7 +201,6 @@
             };
         }
 
-        // Fonction pour formater la date au format dd/mm/yyyy hh:mm
         function formatDate(dateString) {
             if (!dateString) return "";
             const date = new Date(dateString);
@@ -165,13 +221,12 @@
                 document.getElementById("eventDate").textContent = formatDate(eventData.date);
                 document.getElementById("eventLieu").textContent = eventData.lieu;
                 document.getElementById("eventPlaces").textContent = eventData.places;
-                // Mettre à jour l'image si une URL d'image est fournie
                 if (eventData.image) {
                     document.getElementById("eventImage").src = eventData.image;
                 }
             } else {
                 document.querySelector(".event-content").innerHTML = 
-                    "<p style='text-align: center;'>Aucune donnée reçue. Veuillez scanner un QR Code valide.</p>";
+                    "<p style='text-align: center; color: #4b5563;'>Aucune donnée reçue. Veuillez scanner un QR Code valide.</p>";
             }
         });
     </script>
