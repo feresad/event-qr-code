@@ -6,10 +6,10 @@
     <title>Détails de l'Événement</title>
     <style>
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            background: linear-gradient(45deg, #4c1d95, #6d28d9);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -18,21 +18,23 @@
         }
 
         .event-wrapper {
-            max-width: 520px;
+            max-width: 540px;
             width: 90%;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-            animation: fadeInScale 0.8s ease-out;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+            animation: slideIn 1s ease-out;
             margin: 20px;
+            position: relative;
         }
 
         .event-image {
             width: 100%;
-            height: 240px;
+            height: 260px;
             overflow: hidden;
             position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
         }
 
         .event-image img {
@@ -40,107 +42,130 @@
             height: 100%;
             object-fit: cover;
             object-position: center;
-            transition: transform 0.5s ease;
+            transition: transform 0.6s ease, opacity 0.6s ease;
         }
 
         .event-image:hover img {
-            transform: scale(1.1);
+            transform: scale(1.15);
+            opacity: 0.9;
         }
 
-        .event-image::after {
+        .event-image::before {
             content: '';
             position: absolute;
-            bottom: 0;
+            top: 0;
             left: 0;
             width: 100%;
-            height: 50%;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), transparent);
+            z-index: 1;
         }
 
         .event-content {
-            padding: 30px;
-            position: relative;
+            padding: 35px;
         }
 
         h1 {
-            font-size: 28px;
-            color: #1e3a8a;
-            margin: 0 0 25px;
+            font-size: 30px;
+            color: #4c1d95;
+            margin: 0 0 30px;
             text-align: center;
             font-weight: 700;
-            animation: textGlow 1.5s infinite alternate;
+            letter-spacing: 1px;
+            animation: bounceIn 1.2s ease-out;
         }
 
         .info-item {
             display: flex;
             align-items: center;
-            margin: 12px 0;
-            padding: 12px;
-            background: rgba(243, 244, 246, 0.7);
-            border-radius: 10px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 15px 0;
+            padding: 15px;
+            background: linear-gradient(90deg, #f3e8ff, #e9d5ff);
+            border-radius: 12px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.4s ease;
+        }
+
+        .info-item:hover::before {
+            left: 0;
         }
 
         .info-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            background: rgba(219, 234, 254, 0.9);
+            transform: translateX(10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         }
 
         .info-item strong {
-            min-width: 130px;
-            color: #1f2937;
+            min-width: 140px;
+            color: #2d1b5e;
             font-weight: 600;
-            font-size: 16px;
+            font-size: 17px;
         }
 
         .info-item span {
-            color: #4b5563;
+            color: #4b3a7a;
             flex-grow: 1;
-            font-size: 15px;
+            font-size: 16px;
         }
 
         .qr-badge {
-            margin-top: 25px;
+            margin-top: 30px;
             text-align: center;
-            font-size: 13px;
-            color: #6b7280;
-            background: rgba(229, 231, 235, 0.8);
-            padding: 10px;
-            border-radius: 8px;
-            animation: pulseBadge 2s infinite;
+            font-size: 14px;
+            color: #ffffff;
+            background: #4c1d95;
+            padding: 12px;
+            border-radius: 10px;
+            animation: glow 1.5s infinite alternate;
+            position: relative;
+            z-index: 2;
         }
 
         /* Keyframes Animations */
-        @keyframes fadeInScale {
+        @keyframes slideIn {
             0% {
                 opacity: 0;
-                transform: scale(0.8) translateY(50px);
+                transform: translateX(-100px);
             }
             100% {
                 opacity: 1;
-                transform: scale(1) translateY(0);
+                transform: translateX(0);
             }
         }
 
-        @keyframes textGlow {
+        @keyframes bounceIn {
             0% {
-                text-shadow: 0 0 5px rgba(30, 64, 175, 0.5);
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
             }
             100% {
-                text-shadow: 0 0 15px rgba(30, 64, 175, 0.8);
+                opacity: 1;
+                transform: scale(1);
             }
         }
 
-        @keyframes pulseBadge {
+        @keyframes glow {
             0% {
-                box-shadow: 0 0 0 0 rgba(107, 114, 128, 0.4);
-            }
-            70% {
-                box-shadow: 0 0 0 10px rgba(107, 114, 128, 0);
+                box-shadow: 0 0 5px #4c1d95, 0 0 10px #4c1d95;
             }
             100% {
-                box-shadow: 0 0 0 0 rgba(107, 114, 128, 0);
+                box-shadow: 0 0 15px #6d28d9, 0 0 25px #6d28d9;
             }
         }
 
@@ -149,18 +174,22 @@
                 margin: 15px;
             }
             h1 {
-                font-size: 24px;
+                font-size: 26px;
             }
             .event-image {
-                height: 180px;
+                height: 200px;
             }
             .info-item {
                 flex-direction: column;
                 text-align: center;
-                padding: 10px;
+                padding: 12px;
             }
             .info-item strong {
-                margin-bottom: 8px;
+                margin-bottom: 10px;
+            }
+            .qr-badge {
+                font-size: 13px;
+                padding: 10px;
             }
         }
     </style>
@@ -226,7 +255,7 @@
                 }
             } else {
                 document.querySelector(".event-content").innerHTML = 
-                    "<p style='text-align: center; color: #4b5563;'>Aucune donnée reçue. Veuillez scanner un QR Code valide.</p>";
+                    "<p style='text-align: center; color: #4b3a7a;'>Aucune donnée reçue. Veuillez scanner un QR Code valide.</p>";
             }
         });
     </script>
